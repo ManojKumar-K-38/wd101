@@ -1,60 +1,54 @@
-const form = document.getElementById("registrationForm");
-      const tableBody = document.querySelector("#entriesTable tbody");
+    const form = document.getElementById('registration-form');
+    const tableBody = document.querySelector('#user-entries tbody');
 
-      const dobInput = document.getElementById("dob");
-      const today = new Date();
-      const yyyy = today.getFullYear();
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const maxDob = new Date(yyyy - 18, today.getMonth(), today.getDate()).toISOString().split('T')[0];
+    const minDob = new Date(yyyy - 55, today.getMonth(), today.getDate()).toISOString().split('T')[0];
+    document.getElementById('dob').setAttribute('min', minDob);
+    document.getElementById('dob').setAttribute('max', maxDob);
 
-      const minDate = new Date(yyyy - 55, today.getMonth(), today.getDate())
-        .toISOString()
-        .split("T")[0];
-      const maxDate = new Date(yyyy - 18, today.getMonth(), today.getDate())
-        .toISOString()
-        .split("T")[0];
-      dobInput.setAttribute("min", minDate);
-      dobInput.setAttribute("max", maxDate);
+    function getUserEntries() {
+      return JSON.parse(localStorage.getItem('user-entries') || '[]');
+    }
 
-      function getEntries() {
-        const entries = localStorage.getItem("userEntries");
-        return entries ? JSON.parse(entries) : [];
-      }
-
-      function showEntries() {
-        const entries = getEntries();
-        tableBody.innerHTML = "";
-        entries.forEach((entry) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
+    function displayEntries() {
+      const entries = getUserEntries();
+      tableBody.innerHTML = '';
+      entries.forEach(entry => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
           <td>${entry.name}</td>
           <td>${entry.email}</td>
           <td>${entry.password}</td>
           <td>${entry.dob}</td>
-          <td>${entry.accepted ? "Yes" : "No"}</td>
+          <td>${entry.accepted ? 'Yes' : 'No'}</td>
         `;
-          tableBody.appendChild(row);
-        });
+        tableBody.appendChild(row);
+      });
+    }
+
+    displayEntries();
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const dob = document.getElementById('dob').value;
+      const accepted = document.getElementById('acceptTerms').checked;
+
+      const age = new Date().getFullYear() - new Date(dob).getFullYear();
+      if (age < 18 || age > 55) {
+        alert('Age must be between 18 and 55.');
+        return;
       }
 
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const name = document.getElementById("name").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
-        const dob = document.getElementById("dob").value;
-        const accepted = document.getElementById("accept").checked;
-
-        if (!name || !email || !password || !dob || !accepted) {
-          alert("Please fill in all required fields and accept the terms.");
-          return;
-        }
-
-        const newEntry = { name, email, password, dob, accepted };
-        const entries = getEntries();
-        entries.push(newEntry);
-        localStorage.setItem("userEntries", JSON.stringify(entries));
-        showEntries();
-        form.reset();
-      });
-
-      showEntries();
+      const entry = { name, email, password, dob, accepted };
+      const entries = getUserEntries();
+      entries.push(entry);
+      localStorage.setItem('user-entries', JSON.stringify(entries));
+      displayEntries();
+      form.reset();
+    });

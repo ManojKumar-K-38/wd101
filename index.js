@@ -1,5 +1,4 @@
-    
-    <script>
+
         const form = document.getElementById('registration-form');
         const tableBody = document.querySelector('#user-entries tbody');
 

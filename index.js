@@ -1,8 +1,8 @@
-const signupForm = document.getElementById("signup-form");
-const membersTableBody = document.querySelector("#members-table tbody");
+const form = document.getElementById("registrationForm");Add commentMore actions
+const tableBody = document.querySelector("#userTable tbody");
 
-function checkAgeRange(dobValue) {
-  const dob = new Date(dobValue);
+function isValidAge(dobStr) {
+  const dob = new Date(dobStr);
   const today = new Date();
   const age = today.getFullYear() - dob.getFullYear();
   const m = today.getMonth() - dob.getMonth();
@@ -12,59 +12,67 @@ function checkAgeRange(dobValue) {
   return age >= 18 && age <= 55;
 }
 
-function displayUsers() {
-  const users = JSON.parse(localStorage.getItem("memberList") || "[]");
-  membersTableBody.innerHTML = "";
-  users.forEach(insertRow);
+function loadData() {
+  const entries = JSON.parse(localStorage.getItem("users") || "[]");
+  tableBody.innerHTML = "";
+  entries.forEach(addToTable);
 }
 
-function insertRow(user) {
+function addToTable(user) {
   const row = document.createElement("tr");
   row.innerHTML = `
-    <td>${user.fullName}</td>
+    <td>${user.name}</td>
     <td>${user.email}</td>
     <td>${user.password}</td>
     <td>${user.dob}</td>
-    <td>${user.agreed}</td>
+    <td>${user.acceptedTerms}</td>
   `;
-  membersTableBody.appendChild(row);
+  tableBody.appendChild(row);
 }
 
-signupForm.addEventListener("submit", (e) => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const fullName = document.getElementById("input-name").value.trim();
-  const email = document.getElementById("input-email").value.trim();
-  const password = document.getElementById("input-password").value.trim();
-  const dob = document.getElementById("input-dob").value;
-  const agreed = document.getElementById("input-terms").checked;
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!emailPattern.test(email)) {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const dob = document.getElementById("dob").value;
+  const acceptedTerms = document.getElementById("acceptTerms").checked;
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
     alert("Enter a valid email address.");
     return;
   }
 
-  if (!checkAgeRange(dob)) {
+  if (!isValidAge(dob)) {
     alert("Age must be between 18 and 55.");
     return;
   }
 
-  const user = { fullName, email, password, dob, agreed };
-  const currentUsers = JSON.parse(localStorage.getItem("memberList") || "[]");
-  currentUsers.push(user);
-  localStorage.setItem("memberList", JSON.stringify(currentUsers));
-  insertRow(user);
-  signupForm.reset();
+  const user = { name, email, password, dob, acceptedTerms };
+  const existing = JSON.parse(localStorage.getItem("users") || "[]");
+  existing.push(user);
+  localStorage.setItem("users", JSON.stringify(existing));
+
+  addToTable(user);
+  form.reset();
 });
 
-function getTodayDOBUsers() {
-  const today = new Date().toISOString().split('T')[0];
-  const users = JSON.parse(localStorage.getItem("memberList") || "[]");
-  const matched = users.filter(u => u.dob === today);
-  if (matched.length === 0) return "";
-  return matched.map(u => u.fullName).join(", ");
+
+function getTodaysEntries() {
+  const today = new Date().toISOString().split('T')[0]; // "YYYY-MM-DD"
+  const entries = JSON.parse(localStorage.getItem("users") || "[]");
+
+  const todaysEntries = entries.filter(entry => entry.dob === today);
+
+  if (todaysEntries.length === 0) {
+    return "";
+  }
+
+  return todaysEntries.map(entry => entry.name).join(", ");
 }
 
-window.getTodayDOBUsers = getTodayDOBUsers;
-window.onload = displayUsers;
+window.getTodaysEntries = getTodaysEntries;
 
+window.onload = loadData;

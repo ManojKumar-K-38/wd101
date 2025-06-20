@@ -1,153 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Sign-Up</title>
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        .form-container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .error-message {
-            color: #dc3545;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-            display: block;
-        }
-        
-        .success-message {
-            color: #28a745;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-        }
-        
-        .table-container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-        }
-        
-        .btn-submit {
-            background-color: #28a745;
-            border-color: #28a745;
-            font-weight: 600;
-        }
-        
-        .btn-submit:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
-        }
-        
-        .form-label {
-            font-weight: 600;
-            color: #495057;
-        }
-        
-        .table th {
-            background-color: #343a40;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-        
-        .no-entries {
-            text-align: center;
-            color: #6c757d;
-            font-style: italic;
-        }
+        * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f6f8;
+  padding: 40px;
+  color: #333;
+}
+
+#form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #2c3e50;
+}
+
+#signup-form {
+  background-color: #ffffff;
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto 30px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#signup-form label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+#signup-form input[type="text"],
+#signup-form input[type="email"],
+#signup-form input[type="password"],
+#signup-form input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#signup-form input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+#signup-form button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#signup-form button:hover {
+  background-color: #2980b9;
+}
+
+h3 {
+  text-align: center;
+  margin-top: 30px;
+  color: #2c3e50;
+}
+
+#members-table {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+#members-table th,
+#members-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+#members-table thead {
+  background-color: #3498db;
+  color: white;
+}
+
+#members-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
     </style>
-</head>
-<body>
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                <div class="form-container">
-                    <h2 class="text-center mb-4">Registration Form</h2>
-                    <form id="registration-form">
-                        
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name *</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                            <span id="name-error" class="error-message"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email *</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                            <span id="email-error" class="error-message"></span>
-                        </div>
-
-                        <!-- Password Field -->
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password *</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                            <span id="password-error" class="error-message"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="dob" class="form-label">Date of Birth *</label>
-                            <input type="date" class="form-control" id="dob" name="dob" required>
-                            <small class="form-text text-muted">You must be between 18 and 55 years old</small>
-                            <span id="dob-error" class="error-message"></span>
-                        </div>
-
-                        <div class="mb-4">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="acceptTerms" name="acceptTerms" required>
-                                <label class="form-check-label" for="acceptTerms">
-                                    Accept Terms & Conditions *
-                                </label>
-                            </div>
-                            <span id="terms-error" class="error-message"></span>
-                        </div>
-
-                        <button type="submit" class="btn btn-submit w-100">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="table-container">
-                    <h2 class="text-center mb-4">Entries</h2>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover" id="user-entries">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Password</th>
-                                    <th>Dob</th>
-                                    <th>Accepted terms?</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="no-entries">
-                                    <td colspan="5">No entries yet</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  </head>
+  <body>
+    <h2 id="form-title">User Sign-Up</h2>
+    <form id="signup-form">
+      <label>Full Name: <input type="text" id="input-name" required /></label><br />
+      <label>Email Address: <input type="email" id="input-email" required /></label><br />
+      <label>Create Password: <input type="password" id="input-password" required /></label><br />
+      <label>Birth Date: <input type="date" id="input-dob" required /></label><br />
+      <label>
+        <input type="checkbox" id="input-terms" required />
+        I agree to the terms and conditions
+      </label><br />
+      <button type="submit">Register</button>
+    </form>
+    <h3>Registered Members</h3>
+    <table border="1" id="members-table">
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Birth Date</th>
+          <th>Agreed?</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
     <script src="index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>

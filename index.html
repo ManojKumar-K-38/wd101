@@ -1,134 +1,42 @@
-<!DOCTYPE html>
+<!DOCTYPE html>Add commentMore actions
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Sign-Up</title>
-    <style>
-        * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-  background-color: #f4f6f8;
-  padding: 40px;
-  color: #333;
-}
-
-#form-title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 28px;
-  color: #2c3e50;
-}
-
-#signup-form {
-  background-color: #ffffff;
-  padding: 20px; 
-  max-width: 500px;
-  margin: 0 auto 30px auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-#signup-form label {
-  display: block;
-  margin-bottom: 15px;
-  font-size: 16px;
-}
-
-#signup-form input[type="text"],
-#signup-form input[type="email"],
-#signup-form input[type="password"],
-#signup-form input[type="date"] {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-#signup-form input[type="checkbox"] {
-  margin-right: 8px;
-}
-
-#signup-form button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-#signup-form button:hover {
-  background-color: #2980b9;
-}
-
-h3 {
-  text-align: center;
-  margin-top: 30px;
-  color: #2c3e50;
-}
-
-#members-table {
-  width: 100%;
-  max-width: 800px;
-  margin: 20px auto;
-  border-collapse: collapse;
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-#members-table th,
-#members-table td {
-  padding: 12px 15px;
-  text-align: left;
-  border: 1px solid #ddd;
-}
-
-#members-table thead {
-  background-color: #3498db;
-  color: white;
-}
-
-#members-table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-    </style>
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h2 id="form-title">User Sign-Up</h2>
-    <form id="signup-form">
-      <label>Full Name: <input type="text" id="input-name" required /></label><br />
-      <label>Email Address: <input type="email" id="input-email" required /></label><br />
-      <label>Create Password: <input type="password" id="input-password" required /></label><br />
-      <label>Birth Date: <input type="date" id="input-dob" required /></label><br />
+    <h2 id="heading">Registration Form</h2>
+    <form id="registrationForm">
+      <label>Name: <input type="text" id="name" required /></label><br />
+      <label>Email: <input type="email" id="email" required /></label><br />
+      <label>Password: <input type="password" id="password" required /></label
+      ><br />
+      <label>Date of Birth: <input type="date" id="dob" required /></label
+      ><br />
       <label>
-        <input type="checkbox" id="input-terms" required />
-        I agree to the terms and conditions
-      </label><br />
-      <button type="submit">Register</button>
+        <input type="checkbox" id="acceptTerms" required />
+        I accept the terms and conditions </label
+      >
+      <br />
+      <button type="submit">Submit</button>
     </form>
-    <h3>Registered Members</h3>
-    <table border="1" id="members-table">
+
+    <h3>Registered Users</h3>
+    <table border="1" id="userTable">
       <thead>
         <tr>
-          <th>Full Name</th>
+          <th>Name</th>
           <th>Email</th>
           <th>Password</th>
-          <th>Birth Date</th>
-          <th>Agreed?</th>
+          <th>Dob</th>
+          <th>Accepted terms?</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
+
     <script src="index.js"></script>
   </body>
 </html>

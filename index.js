@@ -1,4 +1,4 @@
-const form = document.getElementById("registrationForm");Add commentMore actions
+const form = document.getElementById("registrationForm");
 const tableBody = document.querySelector("#userTable tbody");
 
 function isValidAge(dobStr) {
